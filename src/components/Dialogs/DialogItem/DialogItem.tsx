@@ -1,14 +1,10 @@
 import React from "react";
-import s from "./Dialogs.module.css";
+import s from "../Dialogs.module.css";
 import {NavLink} from "react-router-dom";
-
-type DialogItemType = {
-    name: string
-    id: string
-}
+import {dialogsType} from "../../../Redux/state";
 
 
-export const DialogItem =(props: DialogItemType)=>{
+export const DialogItem =(props:dialogsType)=>{
     return (
         /*let path = '/dialogs/' + props.id*/   //вместо {'/dialogs/' + props.id} можно вставить эту переменную
         <div className={`${s.dialog} ${s.active}`}>
