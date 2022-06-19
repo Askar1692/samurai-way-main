@@ -9,10 +9,11 @@ import {Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {rootStateType} from "./Redux/state";
+import {addPost, rootStateType} from "./Redux/state";
 
 type appPropsType = {
     state: rootStateType
+    addPost:(postText:string)=>void
 }
 
 
@@ -29,7 +30,7 @@ export const App  = (props:appPropsType) => {
                 <div className='app-wrapper-content'>
                     <Route path={'/dialogs'} render={() => <Dialogs dialogs={props.state.dialogsPage.dialogs}
                                                                     messages={props.state.dialogsPage.messages}/>}/>
-                    <Route path={'/profile'} render={() => <Profile posts={props.state.profilePage.posts}/>}/>
+                    <Route path={'/profile'} render={() => <Profile posts={props.state.profilePage.posts} addPost={props.addPost}/>}/>
                     <Route path={'/news'} render={() => <News/>}/>
                     <Route path={'/music'} render={() => <Music/>}/>
                     <Route path={'/settings'} render={() => <Settings/>}/>
