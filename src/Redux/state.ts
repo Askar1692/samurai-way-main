@@ -1,4 +1,10 @@
-import {renderTree} from "../index";
+let renderTree = () => {
+    console.log('State changed')
+}
+
+export const subscribe = (callback: () => void) => {
+    renderTree = callback
+}
 
 export type rootStateType = {
     dialogsPage: dialogsPropsType
@@ -11,6 +17,7 @@ export type dialogsPropsType = {
 }
 export type profilePagePropsType = {
     posts: Array<postsType>
+    newPostText: string
 }
 export type messageType = {
     id: number
@@ -44,6 +51,7 @@ export const state: rootStateType = {
         ]
     },
     profilePage: {
+        newPostText: "Hello my friend",
         posts: [
             {id: 1, message: "Hi, how are you?", likeCounts: 23},
             {id: 2, message: "It's my first post", likeCounts: 50}
@@ -52,13 +60,18 @@ export const state: rootStateType = {
 
 }
 
-export const addPost = (postText:string) => {
-    const newPost:postsType = {
-        id:3,
-        message:postText,
+export const addPost = (postText: string) => {
+    const newPost: postsType = {
+        id: 3,
+        message: postText,
         likeCounts: 0
     };
     state.profilePage.posts.push(newPost)
+    state.profilePage.newPostText = ''
+    renderTree()
+}
 
-    renderTree(state)
+export const changeNewText = (newPostText: string) => {
+    state.profilePage.newPostText = newPostText
+    renderTree()
 }

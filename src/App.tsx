@@ -9,11 +9,13 @@ import {Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {addPost, rootStateType} from "./Redux/state";
+import {addPost, changeNewText, rootStateType} from "./Redux/state";
 
 type appPropsType = {
     state: rootStateType
     addPost:(postText:string)=>void
+    newPostText:string
+    changeNewText:(newPostText:string)=>void
 }
 
 
@@ -30,7 +32,10 @@ export const App  = (props:appPropsType) => {
                 <div className='app-wrapper-content'>
                     <Route path={'/dialogs'} render={() => <Dialogs dialogs={props.state.dialogsPage.dialogs}
                                                                     messages={props.state.dialogsPage.messages}/>}/>
-                    <Route path={'/profile'} render={() => <Profile posts={props.state.profilePage.posts} addPost={props.addPost}/>}/>
+                    <Route path={'/profile'} render={() => <Profile posts={props.state.profilePage.posts}
+                                                                    addPost={props.addPost}
+                                                                    newPostText={props.state.profilePage.newPostText}
+                                                                    changeNewText={props.changeNewText}/>}/>
                     <Route path={'/news'} render={() => <News/>}/>
                     <Route path={'/music'} render={() => <Music/>}/>
                     <Route path={'/settings'} render={() => <Settings/>}/>
