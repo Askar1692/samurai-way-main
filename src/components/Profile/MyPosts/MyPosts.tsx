@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from "react";
 import s from './MyPosts.module.css'
 import {Post} from "./post/Post";
-import {ActionTypes, postsType} from "../../../Redux/state";
+import {ActionTypes, addPostAC, ChangeNewTextAC, postsType} from "../../../Redux/state";
 
 type myPostType = {
     /*addPost: (postText: string) => void*/
@@ -18,7 +18,8 @@ export const MyPosts = (props: myPostType) => {
     //let newPostElement = React.createRef<HTMLTextAreaElement>() //ссылка ref
     const addPost = () => {
         /*props.addPost(props.newPostText)*/
-        props.dispatch({type: "ADD-POST", postText: props.newPostText})
+        /*props.dispatch({type: "ADD-POST", postText: props.newPostText})*/
+        props.dispatch(addPostAC(props.newPostText))
         /*props.changeNewTextCallback('')*/
         //let text = newPostElement.current?.value
         /* alert(text)*/
@@ -29,7 +30,8 @@ export const MyPosts = (props: myPostType) => {
 
     const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         /*props.changeNewTextCallback(e.currentTarget.value)*/
-        props.dispatch({type: "CHANGE-NEW-TEXT", newPostText:e.currentTarget.value})
+       /* props.dispatch({type: "CHANGE-NEW-TEXT", newPostText:e.currentTarget.value})*/
+        props.dispatch(ChangeNewTextAC(e.currentTarget.value))
     }
     return (
         <div className={s.postsBlock}>
