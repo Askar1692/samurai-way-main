@@ -1,4 +1,3 @@
-
 export type rootStateType = {
     dialogsPage: dialogsPropsType
     profilePage: profilePagePropsType
@@ -30,11 +29,24 @@ export type postsType = {
 
 export type StoreType = {
     _state: rootStateType
-    changeNewText:(newPostText: string)=>void
-    addPost: (postText: string)=>void
-    _renderTree: ()=>void
-    subscribe:(callback: () => void)=>void
-    getState: ()=> rootStateType
+    changeNewText: (newPostText: string) => void
+    addPost: (postText: string) => void
+    _renderTree: () => void
+    subscribe: (callback: () => void) => void
+    getState: () => rootStateType
+    dispatch: (action: ActionTypes) => void
+}
+
+export type ActionTypes = AddPostActionType | ChangeNewTextActionType
+
+type AddPostActionType = {
+    type: 'ADD-POST'
+    postText: string
+}
+
+type ChangeNewTextActionType = {
+    type: 'CHANGE-NEW-TEXT'
+    newPostText: string
 }
 
 export const store: StoreType = {
@@ -61,11 +73,11 @@ export const store: StoreType = {
         }
 
     },
-    changeNewText (newPostText: string) {
+    changeNewText(newPostText: string) {
         this._state.profilePage.newPostText = newPostText
         this._renderTree()
     },
-    addPost (postText: string) {
+    addPost(postText: string) {
         const newPost: postsType = {
             id: 3,
             message: postText,
@@ -75,13 +87,29 @@ export const store: StoreType = {
         this._state.profilePage.newPostText = ''
         this._renderTree()
     },
-    _renderTree () {
+    _renderTree() {
         console.log('State changed')
     },
-    subscribe (callback) {
+    subscribe(callback) {
         this._renderTree = callback
     },
-    getState () {
+    getState() {
         return this._state;
+    },
+    dispatch(action) {
+        if(action.type === 'ADD-POST'){
+            const newPost: postsType = {
+                id: 3,
+                message: action.postText,
+                likeCounts: 0
+            };
+            this._state.profilePage.posts.push(newPost)
+            this._state.profilePage.newPostText = ''
+            this._renderTree()
+        }
+        else if (action.type === 'CHANGE-NEW-TEXT'){
+            this._state.profilePage.newPostText = action.newPostText
+            this._renderTree()
+        }
     }
 }

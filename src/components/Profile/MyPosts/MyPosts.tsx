@@ -1,13 +1,14 @@
-import React, {ChangeEvent, ChangeEventHandler} from "react";
+import React, {ChangeEvent} from "react";
 import s from './MyPosts.module.css'
 import {Post} from "./post/Post";
-import {postsType, profilePagePropsType} from "../../../Redux/state";
+import {ActionTypes, postsType} from "../../../Redux/state";
 
 type myPostType = {
-    addPost: (postText: string) => void
+    /*addPost: (postText: string) => void*/
     posts: Array<postsType>
     newPostText: string
-    changeNewTextCallback: (newPostText: string) => void
+    /*changeNewTextCallback: (newPostText: string) => void*/
+    dispatch: (action:ActionTypes) => void
 }
 
 
@@ -16,7 +17,8 @@ export const MyPosts = (props: myPostType) => {
 
     //let newPostElement = React.createRef<HTMLTextAreaElement>() //ссылка ref
     const addPost = () => {
-        props.addPost(props.newPostText)
+        /*props.addPost(props.newPostText)*/
+        props.dispatch({type: "ADD-POST", postText: props.newPostText})
         /*props.changeNewTextCallback('')*/
         //let text = newPostElement.current?.value
         /* alert(text)*/
@@ -26,7 +28,8 @@ export const MyPosts = (props: myPostType) => {
         }
 
     const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.changeNewTextCallback(e.currentTarget.value)
+        /*props.changeNewTextCallback(e.currentTarget.value)*/
+        props.dispatch({type: "CHANGE-NEW-TEXT", newPostText:e.currentTarget.value})
     }
     return (
         <div className={s.postsBlock}>
