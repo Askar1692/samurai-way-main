@@ -1,10 +1,3 @@
-/*let renderTree = () => {
-    console.log('State changed')
-}
-
-export const subscribe = (callback: () => void) => {
-    renderTree = callback
-}*/
 
 export type rootStateType = {
     dialogsPage: dialogsPropsType
@@ -34,23 +27,6 @@ export type postsType = {
     message: string
     likeCounts: number
 }
-
-
-/*export const addPost = (postText: string) => {
-    const newPost: postsType = {
-        id: 3,
-        message: postText,
-        likeCounts: 0
-    };
-    state.profilePage.posts.push(newPost)
-    state.profilePage.newPostText = ''
-    renderTree()
-}*/
-
-/*export const changeNewText = (newPostText: string) => {
-    state.profilePage.newPostText = newPostText
-    renderTree()
-}*/
 
 export type StoreType = {
     _state: rootStateType
