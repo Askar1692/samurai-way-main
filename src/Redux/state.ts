@@ -37,18 +37,22 @@ export type StoreType = {
     dispatch: (action: ActionTypes) => void
 }
 
+const ADD_POST = "ADD-POST";
+const CHANGE_NEW_TEXT = "CHANGE-NEW-TEXT";
+
+
 export type ActionTypes = ReturnType<typeof addPostAC> | ReturnType<typeof ChangeNewTextAC>
 
 export const addPostAC = (postText:string) => {
     return {
-        type: "ADD-POST",
+        type: ADD_POST,
         postText: postText
     } as const
 }
 
 export const ChangeNewTextAC = (newPostText:string)=> {
     return {
-        type: "CHANGE-NEW-TEXT",
+        type: CHANGE_NEW_TEXT,
         newPostText: newPostText
     } as const
 }
@@ -66,7 +70,8 @@ export const store: StoreType = {
                 {id: 1, message: 'Hi'},
                 {id: 2, message: 'How are you?'},
                 {id: 3, message: 'Thanks!'}
-            ]
+            ],
+
         },
         profilePage: {
             newPostText: "Hello my friend",
@@ -101,7 +106,7 @@ export const store: StoreType = {
         return this._state;
     },
     dispatch(action) {
-        if(action.type === 'ADD-POST'){
+        if(action.type === ADD_POST){
             const newPost: postsType = {
                 id: 3,
                 message: action.postText,
@@ -111,7 +116,7 @@ export const store: StoreType = {
             this._state.profilePage.newPostText = ''
             this._renderTree()
         }
-        else if (action.type === 'CHANGE-NEW-TEXT'){
+        else if (action.type === CHANGE_NEW_TEXT){
             this._state.profilePage.newPostText = action.newPostText
             this._renderTree()
         }
